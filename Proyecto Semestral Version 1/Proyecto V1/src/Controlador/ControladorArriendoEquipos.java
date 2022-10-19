@@ -28,7 +28,7 @@ public class ControladorArriendoEquipos {
         clientes.add(new Cliente(rut, nom, dir, tel));
     }
 
-    public void creaEquipo(long cod, String desc, long precio){
+    public void creaEquipo(String cod, String desc, long precio){
         equipos.add(new Equipo(cod, desc, precio));
     }
 

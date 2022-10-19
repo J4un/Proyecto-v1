@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class UIArriendoEquipos {
 
-    private static UIArriendoEquipos instancia=null;;
+    private static UIArriendoEquipos instancia=null;
     private final Scanner scan;
     private UIArriendoEquipos(){
         scan=new Scanner(System.in);
@@ -69,7 +69,7 @@ public class UIArriendoEquipos {
         System.out.print("Ingrese el numero de telefono del cliente: ");
         tel=scan.next();
 
-        ControladorArriendoEquipos.getInstancia().crearCliente(rut,nom,dir,tel);
+        ControladorArriendoEquipos.getInstancia().creaCliente(rut,nom,dir,tel);
     }
 
     private void crearEquipo(){
@@ -84,12 +84,32 @@ public class UIArriendoEquipos {
         System.out.print("Ingrese la direccion del cliente: ");
         precio=scan.nextLong();
 
-        ControladorArriendoEquipos.getInstancia().crearEquipo(cod,desc,precio);
+        ControladorArriendoEquipos.getInstancia().creaEquipo(cod,desc,precio);
     }
     private void listaCliente(){
-
+        String[][] matrizCliente = ControladorArriendoEquipos.getInstancia().listaClientes();
+        if (matrizCliente.length > 0) {
+            System.out.println("\nListado de clientes");
+            System.out.println("------------");
+            System.out.printf("%-15s%-15s%-15s%-15s%n","Rut","Nombre","Direccion","Telefono","Estado");
+            for (String[] linea : matrizCliente) {
+                System.out.printf("%-15s%-15s%-15s%-15s%n", linea[0], linea[1], linea[2],linea[3]);
+            }
+        } else {
+            System.out.println("\nNo hay clientes");
+        }
     }
     private void listaEquipo(){
-
+        String[][] matrizEquipo = ControladorArriendoEquipos.getInstancia().listaEquipos();
+        if (matrizEquipo.length > 0) {
+            System.out.println("\nListado de equipo");
+            System.out.println("------------");
+            System.out.printf("%-15s%-15s%-15s%-15s%n","Rut","Nombre","Direccion","Telefono","Estado");
+            for (String[] linea : matrizEquipo) {
+                System.out.printf("%-15s%-15s%-15s%-15s%n", linea[0], linea[1], linea[2],linea[3]);
+            }
+        } else {
+            System.out.println("\nNo hay equipo");
+        }
     }
 }
