@@ -6,8 +6,8 @@ public class Equipo {
     private long precioArriendoDia;
     private EstadoEquipo estado;
 
-    public Equipo(long cod, String desc, long precio){
-        codigo=cod;
+    public Equipo(String cod, String desc, long precio){
+        codigo= Long.parseLong(cod);
         descripcion=desc;
         precioArriendoDia=precio;
     }
