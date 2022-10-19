@@ -34,11 +34,9 @@ public class Cliente {
     }
     public void setActivo(){
         this.activo = true;
-        System.out.println("Activo");
     }
     public void setInactivo(){
         this.activo = false;
-        System.out.println("Inactivo");
     }
 
 }
