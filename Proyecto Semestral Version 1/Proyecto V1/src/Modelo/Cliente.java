@@ -30,6 +30,7 @@ public class Cliente {
         return telefono;
     }
     public boolean isActivo(){
+
         return activo;
     }
     public void setActivo(){
