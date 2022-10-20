@@ -57,32 +57,34 @@ public class UIArriendoEquipos {
     private void crearCliente(){
         String rut,nom,dir,tel;
 
-        System.out.print("Ingrese el rut del cliente: ");
-        rut=scan.next();
-
-        System.out.print("Ingrese el nombre del cliente: ");
+        System.out.println("Ingrese el rut del cliente: ");
+        scan.nextLine();
+        rut=scan.nextLine();
+        System.out.println("Ingrese el nombre del cliente: ");
         nom=scan.nextLine();
 
-        System.out.print("Ingrese la direccion del cliente: ");
+        System.out.println("Ingrese la direccion del cliente: ");
         dir=scan.nextLine();
 
-        System.out.print("Ingrese el numero de telefono del cliente: ");
+        System.out.println("Ingrese el numero de telefono del cliente: ");
         tel=scan.next();
 
         ControladorArriendoEquipos.getInstancia().creaCliente(rut,nom,dir,tel);
     }
 
     private void crearEquipo(){
-        String cod,desc;
+        long cod;
+        String desc;
         long precio;
-        System.out.print("Ingrese el rut del cliente: ");
-        cod=scan.nextLine();
-
-        System.out.print("Ingrese el nombre del cliente: ");
+        System.out.println("Ingrese el codigo del equipo: ");
+        cod=scan.nextLong();
+        scan.nextLine();
+        System.out.println("Ingrese la descripcion del equipo: ");
         desc=scan.nextLine();
 
-        System.out.print("Ingrese la direccion del cliente: ");
+        System.out.println("Ingrese el precio del equipo: ");
         precio=scan.nextLong();
+
 
         ControladorArriendoEquipos.getInstancia().creaEquipo(cod,desc,precio);
     }
@@ -104,7 +106,7 @@ public class UIArriendoEquipos {
         if (matrizEquipo.length > 0) {
             System.out.println("\nListado de equipo");
             System.out.println("------------");
-            System.out.printf("%-15s%-15s%-15s%-15s%n","Rut","Nombre","Direccion","Telefono","Estado");
+            System.out.printf("%-15s%-15s%-15s%-15s%n","Codigo","Descripcion","Precio","Estado");
             for (String[] linea : matrizEquipo) {
                 System.out.printf("%-15s%-15s%-15s%-15s%n", linea[0], linea[1], linea[2],linea[3]);
             }

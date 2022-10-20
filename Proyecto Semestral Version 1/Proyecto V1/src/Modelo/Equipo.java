@@ -6,13 +6,15 @@ public class Equipo {
     private long precioArriendoDia;
     private EstadoEquipo estado;
 
-    public Equipo(String cod, String desc, long precio){
-        codigo= Long.parseLong(cod);
+    public Equipo(long cod, String desc, long precio){
+        codigo= cod;
         descripcion=desc;
         precioArriendoDia=precio;
+        estado=EstadoEquipo.OPERATIVO;
     }
 
     public long getCodigo() {
+
         return codigo;
     }
 
