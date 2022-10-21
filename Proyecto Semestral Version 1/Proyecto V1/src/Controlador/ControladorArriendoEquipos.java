@@ -3,7 +3,7 @@ package Controlador;
 import Modelo.Cliente;
 import Modelo.Equipo;
 import Vista.UIArriendoEquipos;
-import java.text.DecimalFormat;
+import java.text.DecimalFormat; //importa para implementar puntos en los miles
 import java.util.ArrayList;
 
 public class ControladorArriendoEquipos {
@@ -59,7 +59,7 @@ public class ControladorArriendoEquipos {
         for(Equipo equipo: equipos){
             equipoArr[i][0] = String.valueOf(equipo.getCodigo());
             equipoArr[i][1] = equipo.getDescripcion();
-            equipoArr[i][2] = miles.format(equipo.getPrecioArriendoDia());
+            equipoArr[i][2] = miles.format(equipo.getPrecioArriendoDia()); //al numero ingresado le agrega los puntos en los miles
             equipoArr[i][3] = String.valueOf(equipo.getEstado());
             i++;
         }
