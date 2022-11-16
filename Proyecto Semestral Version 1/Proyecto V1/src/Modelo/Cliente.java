@@ -5,7 +5,7 @@ public class Cliente {
     private String nombre;
     private String direccion;
     private String telefono;
-    private boolean activo=true;
+    private static boolean activo=true;
 
     public Cliente (String rut, String nom, String dir, String tel){
         this.rut=rut;
@@ -29,15 +29,15 @@ public class Cliente {
     public String getTelefono() {
         return telefono;
     }
-    public boolean isActivo(){
+    public static boolean isActivo(){
 
         return activo;
     }
-    public void setActivo(){
-        this.activo = true;
+    public static void setActivo(){
+        activo = true;
     }
-    public void setInactivo(){
-        this.activo = false;
+    public static void setInactivo(){
+        activo = false;
     }
 
 }
