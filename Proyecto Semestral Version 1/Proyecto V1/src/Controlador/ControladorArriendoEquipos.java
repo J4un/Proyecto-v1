@@ -6,14 +6,17 @@ import Vista.UIArriendoEquipos;
 import java.text.DecimalFormat; //importa para implementar puntos en los miles
 import java.util.ArrayList;
 
+
 public class ControladorArriendoEquipos {
 
     private static ControladorArriendoEquipos instancia=null;
     private final ArrayList<Cliente> clientes;
     private final ArrayList<Equipo> equipos;
+    private final ArrayList<Arriendo> arriendos;
     private ControladorArriendoEquipos(){
         clientes= new ArrayList<>();
         equipos= new ArrayList<>();
+        arriendos=new ArrayList<>();
     }
     public static ControladorArriendoEquipos getInstancia(){
         if(instancia==null){
@@ -109,6 +112,54 @@ public class ControladorArriendoEquipos {
         }
         return equipoArr;
     }
+    public long creaArriendo(String rut){
+        if(buscaCliente(rut)!=null && "ACA FALTA ALGO AA"){
+            int codigo=arriendos.size();
+            arriendos.add(new Arriendo(codigo,new Date(),buscaCliente(rut)));
+            return codigo;
+        }
+    }
+    public String agregaEquipoToArriendo(long codArriendo,long codEquipo){
+
+    }
+    public long cierraArriendo(long codArriendo){
+
+    }
+    public void devuelveEquipos(long codArriendo,EstadoEquipo[] estadoEquipos){
+
+    }
+    public void cambiaEstadoCliente(String rutCliente){
+
+    }
+    public String[] consultaCliente(String rut){
+        String [] datos= new String[6];
+        if(buscaCliente(rut)!=null) {
+            datos[0]=rut;
+            datos[1]=buscaCliente(rut).getNombre();
+            datos[2]=buscaCliente(rut).getDireccion();
+            datos[3]=buscaCliente(rut).getTelefono();
+            if(buscaCliente(rut).isActivo()) {
+                datos[4]="Activo";
+            }else{
+                datos[4]="Inactivo";
+            }
+            datos[5]= String.valueOf((buscaCliente(rut).getArriendosPorDevolver()).length);
+        }
+    }
+    public String[] consultaEquipo(long codigo){
+
+    }
+    public String[] consultaArriendo(long codigo){
+
+    }
+    public String[][] listaArriendos(Date fechaAlInicioPeriodo,Date FechaFinPeriodo){
+
+    }
+    public String[][] listaArriendosPorDevolver(String rutCliente){
+
+    }
+    public String[][] listaDetallesArriendo(long codArriendo){
+
     private Cliente buscaCliente(String rut){
         for (Cliente cliente : clientes) {
             if (cliente.getRut().equalsIgnoreCase(rut)) {
@@ -121,6 +172,14 @@ public class ControladorArriendoEquipos {
         for (Equipo equipo : equipos) {
             if (equipo.getCodigo()==(cod)) {
                 return equipo;
+            }
+        }
+        return null;
+    }
+        private Arriendo buscaArriendo(long codigo){
+        for(Arriendo arriendo: arriendos){
+            if(arriendo.getCodigo()==codigo){
+                return arriendo;
             }
         }
         return null;
