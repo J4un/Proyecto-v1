@@ -29,4 +29,10 @@ public class Equipo {
     public EstadoEquipo getEstado() {
         return estado;
     }
+    public void setEstado(EstadoEquipo estado){
+        this.estado=estado;
+    }
+    public void addDetalleArriendo(DetalleArriendo detalle){
+
+    }
 }
