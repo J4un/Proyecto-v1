@@ -8,7 +8,6 @@ public class Arriendo {
     private Date fechaDevolucion;
     private EstadoArriendo estado;
 
-
     public Arriendo(long codigo, Date fechaInicio,Cliente cliente) {
         this.codigo = codigo;
         this.fechaInicio = fechaInicio;
