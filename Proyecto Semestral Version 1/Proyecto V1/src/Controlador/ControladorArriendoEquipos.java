@@ -4,6 +4,8 @@ import Modelo.*;
 import Excepciones.*;
 import Vista.UIArriendoEquipos;
 import java.text.DecimalFormat; //importa para implementar puntos en los miles
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -133,21 +135,75 @@ public class ControladorArriendoEquipos {
         }
         return equipoArr;
     }
-    public long creaArriendo(String rut){
-
-        if(buscaCliente(rut)!=null && "ACA FALTA ALGO AA"){
-            int codigo=arriendos.size();
-            arriendos.add(new Arriendo(codigo,new Date(),buscaCliente(rut)));
-            return codigo;
+    public long creaArriendo(String rutCliente)throws ClienteException{
+        long codigo= arriendos.size() + 1;
+        Date fechaInicio = new Date();
+        Cliente cliente = buscaCliente(rutCliente);
+        if(cliente!= null){
+            if(cliente.isActivo()){
+                arriendos.add(new Arriendo(codigo, fechaInicio, cliente ));
+                return codigo;
+            }else{
+                throw new ClienteException("el cliente esta inactivo");
+            }
+        }else{
+            throw new ClienteException("el cliente no existe");
         }
     }
-    //public String agregaEquipoToArriendo(long codArriendo,long codEquipo){ }
-    //public long cierraArriendo(long codArriendo){ }
-    //public void devuelveEquipos(long codArriendo,EstadoEquipo[] estadoEquipos){ }
 
-    //public String[] consultaEquipo(long codigo){ }
-    //public String[] consultaArriendo(long codigo){ }
-    //public String[][] listaArriendos(Date fechaAlInicioPeriodo,Date FechaFinPeriodo){ }
+    public String [] consultaEquipo(long codigo){
+        Equipo equipo = buscaEquipo(codigo);
+        if (equipo != null) {
+            String[] equipoArr = new String [5];
+            equipoArr[0] = String.valueOf(equipo.getCodigo());
+            equipoArr[1] = equipo.getDescripcion();
+            equipoArr[2] = String.valueOf(equipo.getPrecioArriendoDia());
+            equipoArr[3] = String.valueOf(equipo.getEstado());
+            if(equipo.isArrendado()){
+                equipoArr[4] = "Arrendado";
+            }
+            else {
+                equipoArr[4] = "Disponible";
+            }
+            return equipoArr;
+        } else{
+            return new String[0];
+        }
+    }
+    public String[] consultaArriendo(long codigo){
+        Arriendo arriendo = buscaArriendo(codigo);
+        if (arriendo != null){
+            String[] arriendoArr = new String[6];
+            arriendoArr[0] = String.valueOf(arriendo.getCodigo());
+            arriendoArr[1] = String.valueOf(arriendo.getFechaInicio());
+            arriendoArr[2] = String.valueOf(arriendo.getFechaDevolucion());
+            arriendoArr[3] = String.valueOf(arriendo.getEstado());
+            arriendoArr[4] = String.valueOf(arriendo.getCliente());
+            arriendoArr[6] = String.valueOf(arriendo.getMontoTotal());
+
+            return arriendoArr;
+        }
+        return new String[0];
+    }
+    public String[][] listaArriendos(Date fechaAlInicioPeriodo,Date fechaFinPeriodo) throws ParseException {
+        SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
+        Date fechaInicioDate = date.parse(String.valueOf(fechaAlInicioPeriodo));
+        Date fechaDevolucionDate = date.parse(String.valueOf(fechaFinPeriodo));
+        String[][] arriendoArr = new String [arriendos.size()][6];
+        int i = 0;
+        for(Arriendo arriendo: arriendos){
+            if((fechaInicioDate.before(arriendo.getFechaInicio())) && (fechaDevolucionDate.after(arriendo.getFechaDevolucion()))){
+                arriendoArr[i][0] = String.valueOf(arriendo.getCodigo());
+                arriendoArr[i][1] = String.valueOf(arriendo.getFechaInicio());
+                arriendoArr[i][2] = String.valueOf(arriendo.getFechaDevolucion());
+                arriendoArr[i][3] = String.valueOf(arriendo.getEstado());
+                arriendoArr[i][4] = String.valueOf(arriendo.getCliente());
+                arriendoArr[i][5] = String.valueOf(arriendo.getMontoTotal());
+                i++;
+            }
+        }
+        return arriendoArr;
+    }
     //public String[][] listaArriendosPorDevolver(String rutCliente){ }
     //public String[][] listaDetallesArriendo(long codArriendo){
 

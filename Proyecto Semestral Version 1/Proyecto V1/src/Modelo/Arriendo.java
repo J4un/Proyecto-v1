@@ -5,12 +5,15 @@ import java.util.*;
 public class Arriendo {
     private long codigo;
     private Date fechaInicio;
+    private Cliente cliente;
     private Date fechaDevolucion;
     private EstadoArriendo estado;
+    private ArrayList<DetalleArriendo>detalleArriendo;
 
     public Arriendo(long codigo, Date fechaInicio,Cliente cliente) {
         this.codigo = codigo;
         this.fechaInicio = fechaInicio;
+        this.cliente= cliente;
         estado=EstadoArriendo.INICIADO;
         detalleArriendo=new ArrayList<DetalleArriendo>();
     }
@@ -54,6 +57,10 @@ public class Arriendo {
         return ;
     }
     public String[][] getDetallestoString(){
+
         return
+    }
+    public Cliente getCliente(){
+        return cliente;
     }
 }

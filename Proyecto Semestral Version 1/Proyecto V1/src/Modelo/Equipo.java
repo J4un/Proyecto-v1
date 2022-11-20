@@ -35,4 +35,12 @@ public class Equipo {
     public void addDetalleArriendo(DetalleArriendo detalle){
 
     }
+    public boolean isArrendado(){
+        Arriendo arriendo = null;
+        if( arriendo.getEstado()== EstadoArriendo.ENTREGADO){
+            return true;
+        }
+        return false;
+
+    }
 }
