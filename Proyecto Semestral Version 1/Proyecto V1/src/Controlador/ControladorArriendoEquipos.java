@@ -5,6 +5,8 @@ import Excepciones.*;
 import Vista.UIArriendoEquipos;
 import java.text.DecimalFormat; //importa para implementar puntos en los miles
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
 
 
 public class ControladorArriendoEquipos {
@@ -37,6 +39,8 @@ public class ControladorArriendoEquipos {
         }
     }
 
+
+
     public void creaEquipo(long cod, String desc, long precio)throws EquipoException {
         Equipo equipo=buscaEquipo(cod);
         if (equipo == null){
@@ -46,13 +50,29 @@ public class ControladorArriendoEquipos {
             throw new EquipoException("El equipo ya existe");
         }
     }
+    public void devuelveEquipos (long codArriendo, EstadoEquipo[] estadoEquipos) throws ArriendoException{
+        Arriendo arriendo = buscaArriendo(codArriendo);
+        if (arriendo!=null ){
+            if(arriendo.getEstado() == EstadoArriendo.ENTREGADO){
+                arriendo.setEstado(EstadoArriendo.DEVUELTO);
+                for (int i=0;i<estadoEquipos.length; i++){
+                    Date fecha = new Date();
+                    arriendo.setFechaDevolucion(fecha);
+                }
+            }else{
+                throw new ArriendoException("el arriendo ya fue entregado");
+            }
+        }else{
+            throw new ArriendoException("no existe un arriendo con el codigo dado");
+        }
+    }
     public void cambiaEstadoCliente(String rutCliente)throws ClienteException{
         Cliente cliente = buscaCliente(rutCliente);
         if (cliente!=null){
-            if(Cliente.isActivo()){
-                Cliente.setInactivo();
+            if (cliente.isActivo()) {
+                cliente.setInactivo();
             } else {
-                Cliente.setActivo();
+                cliente.setActivo();
             }
         }else{
             throw new ClienteException("el cliente no existe");
@@ -60,27 +80,27 @@ public class ControladorArriendoEquipos {
     }
     public String [] consultaCliente(String rut) {
         Cliente cliente = buscaCliente(rut);
+        String[] clientesArr = new String[6];
         if (cliente != null) {
-            String[] clientesArr = new String[6];
             clientesArr[0] = cliente.getRut();
             clientesArr[1] = cliente.getNombre();
             clientesArr[2] = cliente.getDireccion();
             clientesArr[3] = cliente.getTelefono();
-            if(Cliente.isActivo()){
+            if(cliente.isActivo()){
                 clientesArr[4] = "Activo";
             }
             else {
                 clientesArr[4] = "Inactivo";
             }
-            //clientesArr[6] =cliente.getArriendosPorDevolver();
+            clientesArr[6] = Arrays.toString(cliente.getArriendosPorDevolver());
             return clientesArr;
         } else{
-            return new String[0];
+            return clientesArr;
         }
 
     }
     public String [][] listaClientes(){
-        String [][] clienteArr = new String [clientes.size()][5];
+        String [][] clienteArr = new String [clientes.size()][6];
         int i=0;
         for(Cliente cliente: clientes){
             clienteArr[i][0] = cliente.getRut();
@@ -93,6 +113,7 @@ public class ControladorArriendoEquipos {
             else {
                 clienteArr[i][4] = "Inactivo";
             }
+            clienteArr[5] = cliente.getArriendosPorDevolver();
             i++;
         }
         return clienteArr;
@@ -113,52 +134,22 @@ public class ControladorArriendoEquipos {
         return equipoArr;
     }
     public long creaArriendo(String rut){
+
         if(buscaCliente(rut)!=null && "ACA FALTA ALGO AA"){
             int codigo=arriendos.size();
             arriendos.add(new Arriendo(codigo,new Date(),buscaCliente(rut)));
             return codigo;
         }
     }
-    public String agregaEquipoToArriendo(long codArriendo,long codEquipo){
+    //public String agregaEquipoToArriendo(long codArriendo,long codEquipo){ }
+    //public long cierraArriendo(long codArriendo){ }
+    //public void devuelveEquipos(long codArriendo,EstadoEquipo[] estadoEquipos){ }
 
-    }
-    public long cierraArriendo(long codArriendo){
-
-    }
-    public void devuelveEquipos(long codArriendo,EstadoEquipo[] estadoEquipos){
-
-    }
-    public void cambiaEstadoCliente(String rutCliente){
-
-    }
-    public String[] consultaCliente(String rut){
-        String [] datos= new String[6];
-        if(buscaCliente(rut)!=null) {
-            datos[0]=rut;
-            datos[1]=buscaCliente(rut).getNombre();
-            datos[2]=buscaCliente(rut).getDireccion();
-            datos[3]=buscaCliente(rut).getTelefono();
-            if(buscaCliente(rut).isActivo()) {
-                datos[4]="Activo";
-            }else{
-                datos[4]="Inactivo";
-            }
-            datos[5]= String.valueOf((buscaCliente(rut).getArriendosPorDevolver()).length);
-        }
-    }
-    public String[] consultaEquipo(long codigo){
-
-    }
-    public String[] consultaArriendo(long codigo){
-
-    }
-    public String[][] listaArriendos(Date fechaAlInicioPeriodo,Date FechaFinPeriodo){
-
-    }
-    public String[][] listaArriendosPorDevolver(String rutCliente){
-
-    }
-    public String[][] listaDetallesArriendo(long codArriendo){
+    //public String[] consultaEquipo(long codigo){ }
+    //public String[] consultaArriendo(long codigo){ }
+    //public String[][] listaArriendos(Date fechaAlInicioPeriodo,Date FechaFinPeriodo){ }
+    //public String[][] listaArriendosPorDevolver(String rutCliente){ }
+    //public String[][] listaDetallesArriendo(long codArriendo){
 
     private Cliente buscaCliente(String rut){
         for (Cliente cliente : clientes) {

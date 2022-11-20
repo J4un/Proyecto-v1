@@ -22,47 +22,52 @@ public class UIArriendoEquipos {
         return instancia;
     }
 
-    public void menu() throws ClienteException {
+    public void menu() {
         int opcion;
-        do{
-            System.out.println("******* SISTEMA DE ARRIENDO DE EQUIPOS DE NIEVE *******");
-            System.out.println("\n*** MENU DE OPCIONES ***");
-            System.out.println("1. Crea un nuevo cliente");
-            System.out.println("2. Crea un nuevo equipo");
-            System.out.println("3. Arrienda equipos");
-            System.out.println("4. Devuelve equipos");
-            System.out.println("5. Cambiar estado de un cliente");
-            System.out.println("6. Lista todos los clientes");
-            System.out.println("7. Lista todos los equipos");
-            System.out.println("8. Lista de todos los arriendos");
-            System.out.println("9. Lista detalles de un arriendo");
-            System.out.println("10. Salir");
-            System.out.print("\tIngrese opcion: ");
-            opcion=scan.nextInt();
+        try {
+            do{
+                System.out.println("******* SISTEMA DE ARRIENDO DE EQUIPOS DE NIEVE *******");
+                System.out.println("\n*** MENU DE OPCIONES ***");
+                System.out.println("1. Crea un nuevo cliente");
+                System.out.println("2. Crea un nuevo equipo");
+                System.out.println("3. Arrienda equipos");
+                System.out.println("4. Devuelve equipos");
+                System.out.println("5. Cambiar estado de un cliente");
+                System.out.println("6. Lista todos los clientes");
+                System.out.println("7. Lista todos los equipos");
+                System.out.println("8. Lista de todos los arriendos");
+                System.out.println("9. Lista detalles de un arriendo");
+                System.out.println("10. Salir");
+                System.out.print("\tIngrese opcion: ");
+                opcion=scan.nextInt();
 
-            switch(opcion){
-                case 1:
-                    crearCliente();
-                    break;
-                case 2:
-                    crearEquipo();
-                    break;
-                case 5:
-                    cambiaEstadoCliente();
-                    break;
-                case 6:
-                    listaCliente();
-                    break;
-                case 7:
-                    listaEquipo();
-                    break;
-                case 10:
-                    break;
-                default:
-                    System.out.print("La opcion ingresada no es valida");
-                    break;
-            }
-        }while(opcion!=10);
+                switch(opcion){
+                    case 1:
+                        crearCliente();
+                        break;
+                    case 2:
+                        crearEquipo();
+                        break;
+                    case 5:
+                        cambiaEstadoCliente();
+                        break;
+                    case 6:
+                        listaCliente();
+                        break;
+                    case 7:
+                        listaEquipo();
+                        break;
+                    case 10:
+                        break;
+                    default:
+                        System.out.print("La opcion ingresada no es valida");
+                        break;
+                }
+            }while(opcion!=10);
+        }catch (InputMismatchException e) {
+            System.out.println("El caracter ingresado no es valido, intenta de nuevo con uno que sea valido");
+        }
+
     }
     private void crearCliente(){
         String rut,nom,dir,tel;
@@ -102,13 +107,13 @@ public class UIArriendoEquipos {
             System.out.println(e.getMessage());
         }
     }
-    private void cambiaEstadoCliente() throws ClienteException {
+    private void cambiaEstadoCliente(){
         String rut;
         try {
             System.out.println("Cambiando estado de un cliente");
             System.out.println("Rut cliente");
             rut=scan.next();
-            String[] cliente=ControladorArriendoEquipos.getInstancia().consultaCliente(rut);
+            String[] cliente = ControladorArriendoEquipos.getInstancia().consultaCliente(rut);
             if (cliente.length > 0) {
                 ControladorArriendoEquipos.getInstancia().cambiaEstadoCliente(rut);
                 if(cliente[4] == "Activo"){

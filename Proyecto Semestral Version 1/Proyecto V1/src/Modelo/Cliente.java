@@ -6,7 +6,7 @@ public class Cliente {
     private String nombre;
     private String direccion;
     private String telefono;
-    private static boolean activo=true;
+    private boolean activo=true;
     private final ArrayList<Arriendo> arriendos;
 
     public Cliente (String rut, String nom, String dir, String tel){
@@ -32,20 +32,20 @@ public class Cliente {
     public String getTelefono() {
         return telefono;
     }
-    public static boolean isActivo(){
+    public boolean isActivo(){
 
         return activo;
     }
-    public static void setActivo(){
+    public void setActivo(){
         activo = true;
     }
-    public static void setInactivo(){
+    public void setInactivo(){
         activo = false;
     }
     public void addArriendo(Arriendo arriendo){
         arriendos.add(arriendo);
     }
-    public Arriendo[] getArriendosPorDevolver(){
+    public String[] getArriendosPorDevolver(){
         ArrayList<Arriendo> entregados=new ArrayList<Arriendo>();
         for(Arriendo arriendo: arriendos){
             if(arriendo.getEstado()==EstadoArriendo.ENTREGADO){
