@@ -48,6 +48,12 @@ public class UIArriendoEquipos {
                     case 2:
                         crearEquipo();
                         break;
+                    case 3:
+                        arriendaEquipos();
+                        break;
+                    case 4:
+                        //devuelveEquipos();
+                        break;
                     case 5:
                         cambiaEstadoCliente();
                         break;
@@ -107,6 +113,31 @@ public class UIArriendoEquipos {
             System.out.println(e.getMessage());
         }
     }
+
+    private void arriendaEquipos(){
+        String[] nom =new String[1];
+        String[] equipo =new String[1];
+        System.out.println("Arriendo de equipos...");
+        System.out.print("Rut Cliente:");
+        String rut = scan.next();
+
+        nom = ControladorArriendoEquipos.getInstancia().consultaCliente(rut);
+        //System.out.println(Arrays.toString(nom));
+
+        String opcion;
+        do {
+            System.out.print("Codigo equipo: ");
+            long cod = scan.nextLong();
+            equipo = ControladorArriendoEquipos.getInstancia().consultaEquipo(cod);
+            //metodo para ver si el equipo se encuentra en arriendo
+            System.out.print("Desea agregar otro equipo al arriendo? (s/n): ");
+            opcion = scan.next();
+        }while (opcion.equalsIgnoreCase("s"));
+        System.out.println("SALIO DE BUCLE");//PRUEBA
+        System.out.println("Monto total por dia de arriendo ---> " /*AGREGAR MONTO TOTAL DE TOODO LO ARRENDADO*/);
+        //*************FALTA COMPLETAR***************
+    }
+
     private void cambiaEstadoCliente(){
         String rut;
         try {
