@@ -123,7 +123,7 @@ public class UIArriendoEquipos {
 
         nom = ControladorArriendoEquipos.getInstancia().consultaCliente(rut);
         //System.out.println(Arrays.toString(nom));
-
+        //...
         String opcion;
         do {
             System.out.print("Codigo equipo: ");
