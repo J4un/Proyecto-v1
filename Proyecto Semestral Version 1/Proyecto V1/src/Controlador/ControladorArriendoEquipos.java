@@ -115,7 +115,6 @@ public class ControladorArriendoEquipos {
             else {
                 clienteArr[i][4] = "Inactivo";
             }
-            clienteArr[5] = cliente.getArriendosPorDevolver();
             i++;
         }
         return clienteArr;

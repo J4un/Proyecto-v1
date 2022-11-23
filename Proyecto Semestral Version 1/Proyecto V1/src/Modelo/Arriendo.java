@@ -15,7 +15,7 @@ public class Arriendo {
         this.fechaInicio = fechaInicio;
         this.cliente= cliente;
         estado=EstadoArriendo.INICIADO;
-        detalleArriendo=new ArrayList<DetalleArriendo>();
+        detalleArriendo=new ArrayList<>();
     }
 
     public long getCodigo() {
@@ -51,16 +51,55 @@ public class Arriendo {
         return 0;
     }
     public long getMontoTotal(){
-        if(this.getEstado()==EstadoArriendo.DEVUELTO){
 
+        for (DetalleArriendo arriendo:detalleArriendo) {
+            if (this.getEstado() == EstadoArriendo.DEVUELTO) {
+
+                arriendo.getEquipo().getPrecioArriendoDia();                //****************
+                long l = getNumeroDiasArriendo();                      //****************
+                return l*(arriendo.getEquipo().getPrecioArriendoDia());     //****************
+
+            }else if(this.getEstado() == EstadoArriendo.ENTREGADO){
+
+                return arriendo.getEquipo().getPrecioArriendoDia();    //****************
+
+            }
         }
-        return ;
+
+        return 0;
     }
     public String[][] getDetallestoString(){
 
-        return
+        String[][] detallesToString = new String[3][detalleArriendo.size()];
+
+        if (this.getEstado() == EstadoArriendo.ENTREGADO || this.getEstado() == EstadoArriendo.DEVUELTO){
+
+            int i=0;
+            for (DetalleArriendo detalle:detalleArriendo) {
+                detallesToString [0][i] = String.valueOf(detalle.getEquipo());
+                detallesToString [1][i] = detalle.getEquipo().getDescripcion();
+                detallesToString [2][i] = String.valueOf(detalle.getPrecioAplicado());
+                i++;
+            }
+        }else {
+
+        }
+
+        return detallesToString;
     }
+
     public Cliente getCliente(){
         return cliente;
     }
+
+    public Equipo[] getEquipos(){
+        Equipo[] equipos = new Equipo[detalleArriendo.size()];
+        int i=0;
+        for (DetalleArriendo detalle : detalleArriendo) {
+            equipos[i] = detalle.getEquipo();
+            i++;
+        }
+        return equipos;
+    }
+
 }

@@ -45,7 +45,7 @@ public class Cliente {
     public void addArriendo(Arriendo arriendo){
         arriendos.add(arriendo);
     }
-    public String[] getArriendosPorDevolver(){
+    public Arriendo[] getArriendosPorDevolver(){
         ArrayList<Arriendo> entregados=new ArrayList<Arriendo>();
         for(Arriendo arriendo: arriendos){
             if(arriendo.getEstado()==EstadoArriendo.ENTREGADO){
