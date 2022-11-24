@@ -295,7 +295,40 @@ public class UIArriendoEquipos {
 
     }
 
-    private void listaDetallesArriendo(){
+    private void listaDetallesArriendo(){   //************
+        
+        private void listaDetallesArriendo(){
+
+        System.out.println("codigo arriendo");
+        long num = scan.nextLong();
+
+        System.out.println("-------------------------------------------");
+
+        String[] datosArriendo;
+        datosArriendo = ControladorArriendoEquipos.getInstancia().consultaArriendo(num);
+
+        System.out.println("Codigo: "+ datosArriendo[0]);
+        System.out.println("Fecha Inicio: "+ datosArriendo[1]);
+        System.out.println("Fecha Devolucion: "+ datosArriendo[2]);
+        System.out.println("Estado: "+ datosArriendo[3]);
+        System.out.println("Rut cliente: "+ datosArriendo[4]);
+        System.out.println("Monto total: "+ datosArriendo[5]);
+
+
+        System.out.println("-------------------------------------------");
+        System.out.println("          DETALLE DEL ARRIENDO");
+        System.out.println("-------------------------------------------");
+
+        String[][] detallesArriendo;
+
+        detallesArriendo = ControladorArriendoEquipos.getInstancia().listaDetallesArriendo(num);
+        int i=0;
+        for (String[] detalles:detallesArriendo){
+            System.out.println(detalles[i]);
+                    i++;
+        }
+
+    }
 
     }
 }
