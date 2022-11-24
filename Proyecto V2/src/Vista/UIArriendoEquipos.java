@@ -155,7 +155,7 @@ public class UIArriendoEquipos {
             System.out.print("Desea agregar otro equipo al arriendo? (s/n): ");
             opcion = scan.next();
 
-            acumuladorPrecioTotal=Integer.parseInt(acumuladorPrecioTotal+equipo[2]);
+            acumuladorPrecioTotal=Integer.parseInt(equipo[2])+acumuladorPrecioTotal;
 
         }while (opcion.equalsIgnoreCase("s"));
         System.out.println("SALIO DE BUCLE");//PRUEBA
