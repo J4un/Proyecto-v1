@@ -2,6 +2,7 @@ package Vista;
 
 import Controlador.ControladorArriendoEquipos;
 import Excepciones.*;
+import Modelo.EstadoEquipo;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -164,13 +165,51 @@ public class UIArriendoEquipos {
         //*************FALTA COMPLETAR***************
     }
 
+
     private void devuelveEquipos(){
-
-        System.out.println("Devolviendo equipos arrendados...");
-        System.out.println("Rut del cliente: ");
-        String rut = scan.next();
-
-
+        String rut;
+        long codigo;
+        int estado;
+        try {
+            System.out.println("devolviendo equipos arriendo...");
+            System.out.println("rut cliente: ");
+            rut=scan.next();
+            String[] cliente = ControladorArriendoEquipos.getInstancia().consultaCliente(rut);
+            if (cliente.length > 0) {
+                System.out.println("Nombre del cliente: " + cliente[0]+" \n");
+                String[][] datosArriendos = ControladorArriendoEquipos.getInstancia().listaArriendosPorDevolver(rut);
+                if (datosArriendos.length > 0) {
+                    System.out.println("los arriendos por devolver son: ");
+                    System.out.println("---------------------------------------------------------------");
+                    System.out.printf("%-15s %-15s %-15s %-15s %-15s %-15s %n", "Codigo", "Fecha inicio", "Fecha devol.", "Estado", "Rut cliente","Monto total");
+                    for (String[] linea : datosArriendos){
+                        System.out.printf("%-15s %-15s %-15s %-15s %-15s %-15s %n", linea[0],linea[1], linea[2], linea[3], linea[4], linea[5]);
+                    }
+                    System.out.println("codigo de arriendo a devolver:");
+                    codigo=scan.nextLong();
+                    String[][] detallesArriendo = ControladorArriendoEquipos.getInstancia().listaDetallesArriendo(codigo);
+                    if (detallesArriendo.length > 0){
+                        System.out.println("Ingresa codigo y estado en el que se devuelve cada equipo que se indica:");
+                        EstadoEquipo[] estadoEquipo = new EstadoEquipo[detallesArriendo.length];
+                        int i= 0;
+                        for (String[] linea : detallesArriendo){
+                            System.out.print(linea[1]+"("+linea[0]+")"+" --> Estado (1: Operativo, 2:En reparacion, 3: Dadode baja): ");
+                            estado=scan.nextInt();
+                            switch (estado) {
+                                case 1 -> estadoEquipo[i] = EstadoEquipo.valueOf("OPERATIVO");
+                                case 2 -> estadoEquipo[i] = EstadoEquipo.valueOf("EN REPARACION");
+                                case 3 -> estadoEquipo[i] = EstadoEquipo.valueOf("DADO DE BAJA");
+                                default -> System.out.println("ingrese un numero valido");
+                            }
+                        }
+                        ControladorArriendoEquipos.getInstancia().devuelveEquipos(codigo, estadoEquipo);
+                        System.out.println(detallesArriendo.length+" equipo(s) fue(ron) devuelto(s) exitosamente");
+                    }
+                }
+            }
+        }catch (ClienteException | EquipoException | ArriendoException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     private void cambiaEstadoCliente(){
