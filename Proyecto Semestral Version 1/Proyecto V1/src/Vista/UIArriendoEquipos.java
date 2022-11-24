@@ -3,8 +3,10 @@ package Vista;
 import Controlador.ControladorArriendoEquipos;
 import Excepciones.*;
 
-import java.util.InputMismatchException;
-import java.util.Scanner;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.*;
 
 public class UIArriendoEquipos {
 
@@ -52,7 +54,7 @@ public class UIArriendoEquipos {
                         arriendaEquipos();
                         break;
                     case 4:
-                        //devuelveEquipos();
+                        devuelveEquipos();
                         break;
                     case 5:
                         cambiaEstadoCliente();
@@ -62,6 +64,12 @@ public class UIArriendoEquipos {
                         break;
                     case 7:
                         listaEquipo();
+                        break;
+                    case 8:
+                        listaArriendos();
+                        break;
+                    case 9:
+                        listaDetallesArriendo();
                         break;
                     case 10:
                         break;
@@ -75,6 +83,7 @@ public class UIArriendoEquipos {
         }
 
     }
+
     private void crearCliente(){
         String rut,nom,dir,tel;
         try {
@@ -115,20 +124,37 @@ public class UIArriendoEquipos {
     }
 
     private void arriendaEquipos(){
-        String[] nom =new String[1];
+        String[] nom;
         String[] equipo =new String[1];
         System.out.println("Arriendo de equipos...");
         System.out.print("Rut Cliente:");
         String rut = scan.next();
 
+        try {
+            long codArriendo = ControladorArriendoEquipos.getInstancia().creaArriendo(rut);//CREA ARRIENDO
+
+        } catch (ClienteException e) {
+            System.out.println("Ha ocurrido un error");
+        }
+
         nom = ControladorArriendoEquipos.getInstancia().consultaCliente(rut);
-        //System.out.println(Arrays.toString(nom));
+        System.out.println(nom[1]);
+
+
         //...
         String opcion;
         do {
             System.out.print("Codigo equipo: ");
-            long cod = scan.nextLong();
-            equipo = ControladorArriendoEquipos.getInstancia().consultaEquipo(cod);
+            long codEquipo = scan.nextLong();
+            equipo = ControladorArriendoEquipos.getInstancia().consultaEquipo(codEquipo);
+            System.out.println(equipo[4]);
+            if (equipo[4].equalsIgnoreCase("Arrendado")){
+                System.out.println("El equipo de encuentra arrendado");
+            } else {
+
+                ControladorArriendoEquipos.getInstancia().agregaEquipoToArriendo(   /*CUAL ES EL ARRIENDO*/   , codEquipo);//AQUI AGREGARIA EQUIPO
+                System.out.println("Se ha agregado " +equipo[1]+ " al arriendo");
+            }
             //metodo para ver si el equipo se encuentra en arriendo
             System.out.print("Desea agregar otro equipo al arriendo? (s/n): ");
             opcion = scan.next();
@@ -136,6 +162,15 @@ public class UIArriendoEquipos {
         System.out.println("SALIO DE BUCLE");//PRUEBA
         System.out.println("Monto total por dia de arriendo ---> " /*AGREGAR MONTO TOTAL DE TOODO LO ARRENDADO*/);
         //*************FALTA COMPLETAR***************
+    }
+
+    private void devuelveEquipos(){
+
+        System.out.println("Devolviendo equipos arrendados...");
+        System.out.println("Rut del cliente: ");
+        String rut = scan.next();
+
+
     }
 
     private void cambiaEstadoCliente(){
@@ -161,6 +196,7 @@ public class UIArriendoEquipos {
             System.out.println("ingrese un caracter valido");
         }
     }
+
     private void listaCliente(){
         String[][] matrizCliente = ControladorArriendoEquipos.getInstancia().listaClientes();
         if (matrizCliente.length > 0) {
@@ -174,6 +210,7 @@ public class UIArriendoEquipos {
             System.out.println("\nNo hay clientes");
         }
     }
+
     private void listaEquipo(){
         String[][] matrizEquipo = ControladorArriendoEquipos.getInstancia().listaEquipos();
         if (matrizEquipo.length > 0) {
@@ -186,5 +223,40 @@ public class UIArriendoEquipos {
         } else {
             System.out.println("\nNo hay equipo");
         }
+    }
+
+    private void listaArriendos() {
+
+        try {
+            SimpleDateFormat formato =new SimpleDateFormat("dd/MM/yyyy");
+
+            System.out.println("Fecha inicio periodo (dd/mm/aaaa):");
+            String fechaInicio = scan.next();
+            //String[] fecha1 = fechaInicio.split("/");
+
+            Date fechaInicial = formato.parse(fechaInicio);
+
+
+            System.out.println("Fecha fin periodo (dd/mm/aaaa):");
+            String fechaFin = scan.next();
+            //String[] fecha2 = fechaFin.split("/");
+
+            Date fechaFinal = formato.parse(fechaFin);
+
+            String[][] matrizArriendo = ControladorArriendoEquipos.getInstancia().listaArriendos(fechaInicial, fechaFinal);
+
+            //FALTA COMPLETAR
+
+        } catch (ParseException e) {
+            System.out.println("Error en el programa");
+        }
+
+
+        //System.out.println(Arrays.deepToString(matrizArriendo));
+
+    }
+
+    private void listaDetallesArriendo(){
+
     }
 }

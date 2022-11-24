@@ -3,6 +3,8 @@ package Controlador;
 import Modelo.*;
 import Excepciones.*;
 import Vista.UIArriendoEquipos;
+
+import javax.print.DocFlavor;
 import java.text.DecimalFormat; //importa para implementar puntos en los miles
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -28,8 +30,8 @@ public class ControladorArriendoEquipos {
         }
         return instancia;
     }
-    ArrayList<Cliente> ListaClientes = new ArrayList<>();
-    ArrayList<Equipo> ListaEquipos = new ArrayList<>();
+    ArrayList<Cliente> ListaClientes = new ArrayList<>();   //no se usa
+    ArrayList<Equipo> ListaEquipos = new ArrayList<>();     //no se usa
 
     public void creaCliente(String rut, String nom, String dir, String tel)throws ClienteException{
         Cliente cliente = buscaCliente(rut);
@@ -82,7 +84,7 @@ public class ControladorArriendoEquipos {
     }
     public String [] consultaCliente(String rut) {
         Cliente cliente = buscaCliente(rut);
-        String[] clientesArr = new String[6];
+        String[] clientesArr = new String[7];
         if (cliente != null) {
             clientesArr[0] = cliente.getRut();
             clientesArr[1] = cliente.getNombre();
@@ -95,12 +97,11 @@ public class ControladorArriendoEquipos {
                 clientesArr[4] = "Inactivo";
             }
             clientesArr[6] = Arrays.toString(cliente.getArriendosPorDevolver());
-            return clientesArr;
-        } else{
-            return clientesArr;
         }
+        return clientesArr;
 
     }
+
     public String [][] listaClientes(){
         String [][] clienteArr = new String [clientes.size()][6];
         int i=0;
@@ -109,7 +110,7 @@ public class ControladorArriendoEquipos {
             clienteArr[i][1] = cliente.getNombre();
             clienteArr[i][2] = cliente.getDireccion();
             clienteArr[i][3] = cliente.getTelefono();
-            if(cliente.isActivo()==true){
+            if(cliente.isActivo()){
                 clienteArr[i][4] = "Activo";
             }
             else {
@@ -150,6 +151,14 @@ public class ControladorArriendoEquipos {
         }
     }
 
+
+    public String agregaEquipoToArriendo(long codArriendo, long codEquipo) {
+
+        //COMPLETAAAAAR
+
+    }
+
+
     public String [] consultaEquipo(long codigo){
         Equipo equipo = buscaEquipo(codigo);
         if (equipo != null) {
@@ -169,6 +178,7 @@ public class ControladorArriendoEquipos {
             return new String[0];
         }
     }
+
     public String[] consultaArriendo(long codigo){
         Arriendo arriendo = buscaArriendo(codigo);
         if (arriendo != null){
@@ -230,4 +240,6 @@ public class ControladorArriendoEquipos {
         }
         return null;
     }
+
+
 }
