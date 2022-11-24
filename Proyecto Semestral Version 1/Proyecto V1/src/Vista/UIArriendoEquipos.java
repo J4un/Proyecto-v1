@@ -142,27 +142,36 @@ public class UIArriendoEquipos {
         System.out.println(nom[1]);
 
 
+        int acumuladorPrecioTotal = 0;
         //...
         String opcion;
         do {
             System.out.print("Codigo equipo: ");
             long codEquipo = scan.nextLong();
             equipo = ControladorArriendoEquipos.getInstancia().consultaEquipo(codEquipo);
-            System.out.println(equipo[4]);
+            
+            //System.out.println(equipo[4]);
+            //System.out.println(equipo[2]);
+            
             if (equipo[4].equalsIgnoreCase("Arrendado")){
                 System.out.println("El equipo de encuentra arrendado");
             } else {
 
-                ControladorArriendoEquipos.getInstancia().agregaEquipoToArriendo(   /*CUAL ES EL ARRIENDO*/   , codEquipo);//AQUI AGREGARIA EQUIPO
+                
+                //AQUI AGREGARIA EQUIPO
                 System.out.println("Se ha agregado " +equipo[1]+ " al arriendo");
+                System.out.println(ControladorArriendoEquipos.getInstancia().agregaEquipoToArriendo(codArriendo, codEquipo));
+                
             }
             //metodo para ver si el equipo se encuentra en arriendo
             System.out.print("Desea agregar otro equipo al arriendo? (s/n): ");
             opcion = scan.next();
+            
+        acumuladorPrecioTotal= Integer.parseInt(acumuladorPrecioTotal+equipo[2]);
+
         }while (opcion.equalsIgnoreCase("s"));
-        System.out.println("SALIO DE BUCLE");//PRUEBA
-        System.out.println("Monto total por dia de arriendo ---> " /*AGREGAR MONTO TOTAL DE TOODO LO ARRENDADO*/);
-        //*************FALTA COMPLETAR***************
+        //System.out.println("SALIO DE BUCLE");//PRUEBA
+        System.out.println("Monto total por dia de arriendo ---> " +acumuladorPrecioTotal);
     }
 
 
