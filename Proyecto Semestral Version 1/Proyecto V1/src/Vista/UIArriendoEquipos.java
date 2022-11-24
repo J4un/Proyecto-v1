@@ -297,7 +297,6 @@ public class UIArriendoEquipos {
 
     private void listaDetallesArriendo(){   //************
         
-        private void listaDetallesArriendo(){
 
         System.out.println("codigo arriendo");
         long num = scan.nextLong();
@@ -330,5 +329,5 @@ public class UIArriendoEquipos {
 
     }
 
-    }
+    
 }
