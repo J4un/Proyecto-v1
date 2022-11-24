@@ -213,7 +213,28 @@ public class ControladorArriendoEquipos {
         }
         return arriendoArr;
     }
-    //public String[][] listaArriendosPorDevolver(String rutCliente){ }
+
+    public String[][] listaArriendosPorDevolver(String rutCliente){
+        Arriendo[] porDevolver=buscaCliente(rutCliente).getArriendosPorDevolver();
+        String[][] datos=new String[porDevolver.length][7];
+        String format="dd MMMM yyyy";
+        SimpleDateFormat simpleDateFormat=new SimpleDateFormat(format);
+        for(int i=0;i<porDevolver.length;i++){
+            datos[i][0]= String.valueOf(porDevolver[i].getCodigo());
+            datos[i][1]=simpleDateFormat.format(porDevolver[i].getFechaInicio());
+            if(porDevolver[i].getFechaDevolucion()!=null){
+                datos[i][2]= simpleDateFormat.format(porDevolver[i].getFechaDevolucion());
+            }else{
+                datos[i][2]="No devuelto";
+            }
+            datos[i][3]= String.valueOf(porDevolver[i].getEstado()).toLowerCase();
+            datos[i][4]=porDevolver[i].getCliente().getRut();
+            datos[i][5]=porDevolver[i].getCliente().getNombre();
+            datos[i][6]= String.valueOf(porDevolver[i].getMontoTotal());
+        }
+        return datos;
+    }
+    
     //public String[][] listaDetallesArriendo(long codArriendo){
 
     private Cliente buscaCliente(String rut){
