@@ -159,7 +159,7 @@ public class UIArriendoEquipos {
 
         }while (opcion.equalsIgnoreCase("s"));
         System.out.println("SALIO DE BUCLE");//PRUEBA
-        System.out.println("Monto total por dia de arriendo ---> "+acumuladorPrecioTotal );
+        System.out.println("Monto total por dia de arriendo --->  $"+acumuladorPrecioTotal );
         //*************FALTA COMPLETAR***************
     }
 
