@@ -71,9 +71,13 @@ public class ControladorArriendoEquipos {
         if (arriendo[0] != null ){
             if (arriendo[3].equals("DEVUELTO")){
                 if (monto >= Long.parseLong(arriendo[6])){
+                    Arriendo arri = buscaArriendo(codArriendo);
+                    if (monto == Long.parseLong(arriendo[6])){
+                        arri.setEstado(EstadoArriendo.PAGADO);
+                    }
                     Date fecha = new Date();
                     Contado pago = new Contado(monto,fecha);
-                    Objects.requireNonNull(buscaArriendo(codArriendo)).addPagoContado(pago);
+                    arri.addPagoContado(pago);
                     System.out.println("Pago realizado exitosamente");
                 }
                 throw new ArriendoException("el monto ingresado es mayor al que se debe");
@@ -89,9 +93,13 @@ public class ControladorArriendoEquipos {
         if (arriendo[0] != null ){
             if (arriendo[3].equals("DEVUELTO")){
                 if (monto >= Long.parseLong(arriendo[6])){
+                    Arriendo arri = buscaArriendo(codArriendo);
+                    if (monto == Long.parseLong(arriendo[6])){
+                        arri.setEstado(EstadoArriendo.PAGADO);
+                    }
                     Date fecha = new Date();
                     Debito pago = new Debito(monto,fecha,codTransaccion,numTarjeta);
-                    Objects.requireNonNull(buscaArriendo(codArriendo)).addPagoDebito(pago);
+                    arri.addPagoDebito(pago);
                     System.out.println("Pago realizado exitosamente");
                 }
                 throw new ArriendoException("el monto ingresado es mayor al que se debe");
@@ -107,9 +115,13 @@ public class ControladorArriendoEquipos {
         if (arriendo[0] != null ){
             if (arriendo[3].equals("DEVUELTO")){
                 if (monto >= Long.parseLong(arriendo[6])){
+                    Arriendo arri = buscaArriendo(codArriendo);
+                    if (monto == Long.parseLong(arriendo[6])){
+                        arri.setEstado(EstadoArriendo.PAGADO);
+                    }
                     Date fecha = new Date();
                     Credito pago = new Credito(monto,fecha,codTransaccion,numTarjeta,nroCuotas);
-                    Objects.requireNonNull(buscaArriendo(codArriendo)).addPagoCredito(pago);
+                    arri.addPagoCredito(pago);
                     System.out.println("Pago realizado exitosamente");
                 }
                 throw new ArriendoException("el monto ingresado es mayor al que se debe");
@@ -118,47 +130,60 @@ public class ControladorArriendoEquipos {
         }
         throw new ArriendoException("El arriendo no existe");
     }
-    /*
-    Retorna un arreglo de String con los datos del arriendo, si este existe y si tiene el estado devuelto,
-    en caso contrario, retorna un arreglo de tamaño cero. Si existe el arriendo y este puede tener un pago
-    asociado, se almacena, en el arreglo, el código del arriendo, su estado en minúsculas, el rut del cliente
-    asociado, el nombre de este, el monto total del arriendo, el monto pagado a la fecha y el monto total adeudado.
-     */
-    public String[][] consultaArriendoAPagar(long codigo){
-        String[] arriendo = consultaArriendo(codigo);
-        if (arriendo[0] != null && arriendo[3].equals("DEVUELTO")){
-            String [][] arr = new String[9][9];
-            return  arr;
+
+    public String[] consultaArriendoAPagar(long codigo){
+        Arriendo arriendo=buscaArriendo(codigo);
+        if (arriendo != null && arriendo.getEstado().equals(EstadoArriendo.DEVUELTO)){
+            String[] datosArriendo = new String[7];
+            datosArriendo[0]= String.valueOf(arriendo.getCodigo());
+            datosArriendo[1]= String.valueOf(arriendo.getEstado()).toLowerCase();
+            datosArriendo[2]= arriendo.getCliente().getRut();
+            datosArriendo[3]= arriendo.getCliente().getNombre();
+            datosArriendo[4]= String.valueOf(arriendo.getMontoTotal());
+            datosArriendo[5]= arriendo.getMontoPagado;
+            datosArriendo[6]= arriendo.getSaldoAdeudado;
+            return datosArriendo;
         }
-        return new String[0][0];
+        return new String[0];
     }
-    /*
-    String [] datos= new String[5];
-        if(buscaEquipo(codigo)!=null) {
-            datos[0]= String.valueOf(codigo);
-            datos[1]=buscaEquipo(codigo).getDescripcion();
-            datos[2]= String.valueOf(buscaEquipo(codigo).getPrecioArriendoDia());
-            datos[3]= String.valueOf(buscaEquipo(codigo).getEstado()).toLowerCase().replace("_"," ");
-            if(buscaEquipo(codigo).isArrendado()){
-                datos[4]="Arrendado";
-            }else{
-                datos[4]="Disponible";
+    public String[][] listaArriendosPagados(){
+        String[][] arriendosPagados = new String[arriendos.size()][7];
+        int i= 0;
+        for (Arriendo arriendo : arriendos){
+            if (arriendo.getPagosToString != null){
+                arriendosPagados[i][0]= String.valueOf(arriendo.getCodigo());
+                arriendosPagados[i][1]= String.valueOf(arriendo.getEstado()).toLowerCase();
+                arriendosPagados[i][2]= arriendo.getCliente().getRut();
+                arriendosPagados[i][3]= arriendo.getCliente().getNombre();
+                arriendosPagados[i][4]= String.valueOf(arriendo.getMontoTotal());
+                arriendosPagados[i][5]= arriendo.getMontoPagado;
+                arriendosPagados[i][6]= arriendo.getSaldoAdeudado;
+                i++;
             }
         }
-        return datos;
+        if(i == 0){
+            return new String[0][0];
+        }
+        return arriendosPagados;
+    }
 
-
-
+    public String[][] listaPagosDeArriendo(long codArriendo) throws ArriendoException{
+        Arriendo arriendo = buscaArriendo(codArriendo);
+        if (arriendo != null){
+            if (arriendo.getEstado() != EstadoArriendo.INICIADO && arriendo.getEstado() != EstadoArriendo.ENTREGADO){
+                return arriendo.getPagosToString;
+            } else {
+                throw  new ArriendoException("el arriendo no esta habilitado para recibir pagos");
+            }
+        } else {
+            throw new ArriendoException("No existe el arriendo con el codigo dado");
+        }
+    }
+    /*
     public void readDatosSistema(){
 
     }
     public void saveDatosSistema(){
-
-    }
-    public String[][] listaArriendosPagados(){
-
-    }
-    public String[][] listaPagosDeArriendo(){
 
     }
     */
