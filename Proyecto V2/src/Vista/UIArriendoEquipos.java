@@ -1,6 +1,5 @@
 package Vista;
 
-import Contralador.ControladorArriendoEquipos;
 import Controlador.ControladorArriendoEquipos;
 import Excepciones.*;
 import Modelo.EstadoEquipo;

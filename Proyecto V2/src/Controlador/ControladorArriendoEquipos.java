@@ -2,11 +2,17 @@ package Controlador;
 
 import Modelo.*;
 import Excepciones.*;
+
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.text.DecimalFormat; //importa para implementar puntos en los miles
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Objects;
+import java.util.zip.DataFormatException;
 
 
 public class ControladorArriendoEquipos {
@@ -179,14 +185,43 @@ public class ControladorArriendoEquipos {
             throw new ArriendoException("No existe el arriendo con el codigo dado");
         }
     }
-    /*
-    public void readDatosSistema(){
-
+    public void readDatosSistema() throws DataFormatException {
+        try {
+            ObjectInputStream lecturaObj=new ObjectInputStream (new FileInputStream("objetos.obj"));
+            for (Cliente cliente : clientes){
+                cliente =(Cliente)lecturaObj.readObject();
+            }
+            for (Equipo equipo : equipos) {
+                equipo = (Equipo) lecturaObj.readObject();
+            }
+            for (Arriendo arriendo: arriendos){
+                arriendo =(Arriendo)lecturaObj.readObject();
+            }
+            lecturaObj.close();
+        }catch (Exception e){
+            throw new DataFormatException("No ha sido posible leer datos del sistema desde archivo");
+        }
     }
-    public void saveDatosSistema(){
 
+    public void saveDatosSistema() throws DataFormatException {
+        try {
+            ObjectOutputStream objetos = new ObjectOutputStream(new FileOutputStream("objetos.obj"));
+
+            for (Cliente cliente : clientes){
+                objetos.writeObject(cliente);
+            }
+            for (Equipo equipo : equipos){
+                objetos.writeObject(equipo);
+            }
+            for (Arriendo arriendo: arriendos){
+                objetos.writeObject(arriendo);
+            }
+            objetos.close();
+
+        }catch (Exception e){
+            throw new DataFormatException("No ha sido posible guardar datos del sistema en archivo");
+        }
     }
-    */
     public void cambiaEstadoCliente(String rutCliente)throws ClienteException{
         Cliente cliente = buscaCliente(rutCliente);
         if (cliente!=null){
