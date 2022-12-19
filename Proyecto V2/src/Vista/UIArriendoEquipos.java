@@ -122,10 +122,19 @@ public class UIArriendoEquipos {
     private void listaPagosDeUnArriendo() {
         System.out.println("Codigo arriendo");
         long cod= scan.nextLong();
-        ControladorArriendoEquipos.getInstancia().listaDetallesArriendo(cod);
-        System.out.println("\n>>>>>>>>>>>>>>   PAGOS REALIZADOS   <<<<<<<<<<<<<<<");
-        if (){
+        //newwwwwwwwwwwwwwwww
+        String [][] listaPagosdeUnArriendo = ControladorArriendoEquipos.getInstancia().listaDetallesArriendo(cod);
+        if (listaPagosdeUnArriendo.length == 0) {
+            System.out.println("El arriendo no tiene pagos asociados");
+            return;
         }
+        System.out.println("\n>>>>>>>>>>>>>>   PAGOS REALIZADOS   <<<<<<<<<<<<<<<");
+            System.out.printf("%15s %-15s %-15s %n", "Monto", "Fecha", "Tipo pago");
+            for (String[] linea : listaPagosdeUnArriendo){
+                System.out.printf("%-15s %-15s %-15s %n", linea[0],linea[1], linea[2]);
+            }
+        //}
+        //newwwwwwwwwwwwwwwww
     }
 
     private void listaArriendosPagados() {
@@ -160,7 +169,15 @@ public class UIArriendoEquipos {
             System.out.println("Saldo adeudado" + datosArriendo[6]);
             System.out.println("\n----- ANTECEDENTES DEL PAGO -----");
             System.out.println("Medio de pago (1: Contado, 2: Debito, 3: Credito): ");
+
+            //newwwwwwwwwwwwwwwwww
             int opcionPago = scan.nextInt();
+            while (opcionPago!= 1 && opcionPago!=2 && opcionPago!=3){
+                System.out.println("Ingrese un numero entre los rangos");
+                opcionPago = scan.nextInt();
+            }
+            //newwwwwwwwwwwwwwwwww
+
             System.out.println("Monto: ");
             long monto=scan.nextLong(); //se debe validar el monto??? (que deba ser mayor a 0)
             String codTransaccion, numTarjeta;
@@ -227,6 +244,14 @@ public class UIArriendoEquipos {
             desc=scan.nextLine();
             System.out.println("Tipo equipo (1: Implemento, 2: Conjunto): ");
             tipoEquipo=scan.nextInt();
+
+            //newwwwwwwwwwwwwwwwwwwww
+            while (tipoEquipo!= 1 && tipoEquipo!=2){
+                System.out.println("Ingrese un numero entre los rangos");
+                tipoEquipo = scan.nextInt();
+            }
+            //newwwwwwwwwwwwwwwwwwwww
+
             switch (tipoEquipo){
                 case 1:
                     System.out.println("Precio arriendo por dia: ");
@@ -241,11 +266,13 @@ public class UIArriendoEquipos {
                     for (int i=0; i < nroEquiposComponentes; i++){
                         System.out.println("Codigo equipo "+ i++ + " de "+ nroEquiposComponentes+":");
                         codEquipos[i] = scan.nextLong();
+
                 }
                     ControladorArriendoEquipos.getInstancia().creaConjunto(codEquipos, desc);
                     System.out.println("Se ha creado exitosamente un nuevo conjunto");
+
             }
-            //ControladorArriendoEquipos.getInstancia().creaEquipo(cod,desc,precio);//se borra??
+            //ControladorArriendoEquipos.getInstancia().creaEquipo(cod,desc,precio);//se borra?? si se borra
         }catch (EquipoException e) {
             System.out.println(e.getMessage());
         }
