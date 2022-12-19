@@ -57,7 +57,7 @@ public class ControladorArriendoEquipos {
     public void CreaConjunto(long codigo, String descripcion, long [] codEquipos) throws EquipoException{
         Equipo conjunto = buscaEquipo(codigo);
         if (conjunto == null){
-            for (long codEquipo : codEquipos) {
+            for (ong codEquipo : codEquipos) {
                 if (buscaEquipo(codEquipo) != null) {
                     buscaEquipo(codigo).addEquipos(buscaEquipo(codEquipo));
                 } else {
@@ -146,8 +146,8 @@ public class ControladorArriendoEquipos {
             datosArriendo[2]= arriendo.getCliente().getRut();
             datosArriendo[3]= arriendo.getCliente().getNombre();
             datosArriendo[4]= String.valueOf(arriendo.getMontoTotal());
-            datosArriendo[5]= arriendo.getMontoPagado;
-            datosArriendo[6]= arriendo.getSaldoAdeudado;
+            datosArriendo[5]= String.valueOf(arriendo.getMontoPagado());
+            datosArriendo[6]= String.valueOf(arriendo.getSaldoAdeudado());
             return datosArriendo;
         }
         return new String[0];
@@ -156,14 +156,14 @@ public class ControladorArriendoEquipos {
         String[][] arriendosPagados = new String[arriendos.size()][7];
         int i= 0;
         for (Arriendo arriendo : arriendos){
-            if (arriendo.getPagosToString != null){
+            if (arriendo.getPagosToString() != null){
                 arriendosPagados[i][0]= String.valueOf(arriendo.getCodigo());
                 arriendosPagados[i][1]= String.valueOf(arriendo.getEstado()).toLowerCase();
                 arriendosPagados[i][2]= arriendo.getCliente().getRut();
                 arriendosPagados[i][3]= arriendo.getCliente().getNombre();
                 arriendosPagados[i][4]= String.valueOf(arriendo.getMontoTotal());
-                arriendosPagados[i][5]= arriendo.getMontoPagado;
-                arriendosPagados[i][6]= arriendo.getSaldoAdeudado;
+                arriendosPagados[i][5]= String.valueOf(arriendo.getMontoPagado());
+                arriendosPagados[i][6]= String.valueOf(arriendo.getSaldoAdeudado());
                 i++;
             }
         }
@@ -177,7 +177,7 @@ public class ControladorArriendoEquipos {
         Arriendo arriendo = buscaArriendo(codArriendo);
         if (arriendo != null){
             if (arriendo.getEstado() != EstadoArriendo.INICIADO && arriendo.getEstado() != EstadoArriendo.ENTREGADO){
-                return arriendo.getPagosToString;
+                return arriendo.getPagosToString();
             } else {
                 throw  new ArriendoException("el arriendo no esta habilitado para recibir pagos");
             }
