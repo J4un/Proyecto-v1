@@ -1,8 +1,9 @@
 package Modelo;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Debito extends Pago {
+public class Debito extends Pago implements Serializable{
     String codTransaccion;
     String numTarjeta;
 

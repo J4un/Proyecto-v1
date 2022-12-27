@@ -1,20 +1,22 @@
 package Modelo;
 
 import java.util.ArrayList;
-import java.util.*;
+import java.io.Serializable;
 
-public abstract class Equipo {
+public abstract class Equipo implements Serializable{
     protected long codigo;
     protected String descripcion;
     protected long precioArriendoDia;
     protected EstadoEquipo estado;
     protected ArrayList<DetalleArriendo> detalles;
+    protected ArrayList<Equipo> equipos;
 
     public Equipo(long cod, String desc){
         codigo= cod;
         descripcion=desc;
         estado=EstadoEquipo.OPERATIVO;
         detalles= new ArrayList<>();
+        equipos=new ArrayList<>();
     }
 
     public long getCodigo() {
@@ -49,5 +51,9 @@ public abstract class Equipo {
             }
         }
         return false;
+    }
+
+    public void addEquipos(Equipo equipo) {
+        equipos.add(equipo);
     }
 }

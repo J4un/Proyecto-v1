@@ -1,7 +1,10 @@
 package Modelo;
 
-public enum EstadoArriendo {
+import java.io.Serializable;
+
+public enum EstadoArriendo implements Serializable{
     INICIADO,
     ENTREGADO,
-    DEVUELTO
+    DEVUELTO,
+    PAGADO
 }

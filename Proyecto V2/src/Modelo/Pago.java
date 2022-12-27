@@ -1,8 +1,9 @@
 package Modelo;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public abstract class Pago {
+public abstract class Pago implements Serializable{
     long monto;
     Date fecha;
 

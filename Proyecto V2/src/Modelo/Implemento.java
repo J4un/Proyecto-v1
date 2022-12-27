@@ -1,6 +1,8 @@
 package Modelo;
 
-public class Implemento extends Equipo{
+import java.io.Serializable;
+
+public class Implemento extends Equipo implements Serializable{
     long precioArriendoDia;
 
     public Implemento(long cod, String desc, long precio){

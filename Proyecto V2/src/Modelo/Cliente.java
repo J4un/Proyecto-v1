@@ -1,13 +1,14 @@
 package Modelo;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Cliente {
+public class Cliente implements Serializable{
     private String rut;
     private String nombre;
     private String direccion;
     private String telefono;
-    private static boolean activo=true;
-    private final ArrayList<Arriendo> arriendos;
+    private boolean activo=true;
+    private ArrayList <Arriendo> arriendos;
 
     public Cliente (String rut, String nom, String dir, String tel){
         this.rut=rut;
@@ -32,30 +33,34 @@ public class Cliente {
     public String getTelefono() {
         return telefono;
     }
-    public static boolean isActivo(){
+    public boolean isActivo(){
 
         return activo;
     }
-    public static void setActivo(){
+    public void setActivo(){
         activo = true;
     }
-    public static void setInactivo(){
+    public void setInactivo(){
         activo = false;
     }
     public void addArriendo(Arriendo arriendo){
         arriendos.add(arriendo);
+
     }
-    public Arriendo[] getArriendosPorDevolver(){
-        ArrayList<Arriendo> entregados=new ArrayList<>();
-        for(Arriendo arriendo: arriendos){
-            if(arriendo.getEstado()==EstadoArriendo.ENTREGADO){
-                entregados.add(arriendo);
-            }
-        }
-        Arriendo [] listaEntregados = new Arriendo [entregados.size()];
-        for(int i=0;i<arriendos.size();i++){
-            listaEntregados[i]=entregados.get(i);
-        }
-        return listaEntregados;
-    }
+
+    public Arriendo[] getArriendosPorDevolver() {
+    	  ArrayList <Arriendo> porDevolver = new ArrayList<>();
+    	  for (Arriendo arriendo : arriendos) {
+    	    if (arriendo.getEstado() == EstadoArriendo.ENTREGADO) {
+    	      porDevolver.add(arriendo);
+    	    }
+    	  }
+
+    	  Arriendo[] arriendosPorDevolver = new Arriendo[porDevolver.size()];
+    	  for (int i = 0; i < porDevolver.size(); i++) {
+    	    arriendosPorDevolver[i] = porDevolver.get(i);
+    	  }
+
+    	  return arriendosPorDevolver;
+    	}
 }
