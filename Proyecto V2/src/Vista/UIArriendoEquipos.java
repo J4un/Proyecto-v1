@@ -41,7 +41,7 @@ public class UIArriendoEquipos {
                 System.out.println("6. Paga arriendo");
                 System.out.println("7. Genera reportes");
                 System.out.println("8. Cargar datos desde archivo");
-                System.out.println("9. Guardar datos desde archivo");
+                System.out.println("9. Guardar datos en archivo");
                 System.out.println("10. Salir");
                 System.out.print("\tIngrese opcion: ");
                 opcion=scan.nextInt();
