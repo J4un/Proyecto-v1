@@ -34,6 +34,27 @@ public class ControladorArriendoEquipos implements Serializable{
         return instancia;
     }
 
+    public void llenarControlador (){
+        try {
+            creaCliente("001","Juanito","Nose","32489384");
+            creaCliente("002","Pepito","Nose","32484");
+            creaImplemento(6969,"Moto",1000);
+            long codArriendo = ControladorArriendoEquipos.getInstancia().creaArriendo("001");//CREA ARRIENDO
+            System.out.println(ControladorArriendoEquipos.getInstancia().agregaEquipoToArriendo(0, 6969));
+            cierraArriendo(0);
+            System.out.println("Codigo arriendo aaaaa: "+arriendos.get(0).getCodigo());
+
+            String[][] detallesArriendo = ControladorArriendoEquipos.getInstancia().listaDetallesArriendo(0);
+            EstadoEquipo[] estadito=new EstadoEquipo [detallesArriendo.length];
+            estadito[0]=EstadoEquipo.OPERATIVO;
+            devuelveEquipos(0,estadito);
+            //pagaArriendoContado(0, 999);
+
+        }catch (ClienteException | EquipoException |ArriendoException e) {
+            System.out.println(e.getMessage()+"La wea no funciono AAAAAAAAAAAa");
+    }
+    }
+
     public void creaCliente(String rut, String nom, String dir, String tel)throws ClienteException{
         Cliente cliente = buscaCliente(rut);
         if (cliente == null){
@@ -411,21 +432,26 @@ public class ControladorArriendoEquipos implements Serializable{
         int i = 0;
         for(Arriendo arriendo:arriendos){
             if(buscaArriendo(i)!=null) {
+                if ((arriendo.getFechaInicio().after(fechaAlInicioPeriodo) || arriendo.getFechaInicio().equals(fechaAlInicioPeriodo)) &&
+                        (arriendo.getFechaInicio().before(FechaFinPeriodo) || arriendo.getFechaInicio().equals(FechaFinPeriodo))){
+                //if(arriendo.getFechaInicio().after(fechaAlInicioPeriodo) && arriendo.getFechaInicio().before(FechaFinPeriodo)) {
+                    arriendoArr[i][0]= String.valueOf(buscaArriendo(i).getCodigo());
 
-                arriendoArr[i][0]= String.valueOf(buscaArriendo(i).getCodigo());
+                    arriendoArr[i][1]= simpleDateFormat.format(buscaArriendo(i).getFechaInicio());
 
-                arriendoArr[i][1]= simpleDateFormat.format(buscaArriendo(i).getFechaInicio());
-
-                if(buscaArriendo(i).getFechaDevolucion()!=null){
-                    arriendoArr[i][2]= simpleDateFormat.format(buscaArriendo(i).getFechaDevolucion());
-                }else{
-                    arriendoArr[i][2]="No devuelto";
+                    if(buscaArriendo(i).getFechaDevolucion()!=null){
+                        arriendoArr[i][2]= simpleDateFormat.format(buscaArriendo(i).getFechaDevolucion());
+                    }else{
+                        arriendoArr[i][2]="No devuelto";
+                    }
+                    arriendoArr[i][3]= String.valueOf(buscaArriendo(i).getEstado()).toLowerCase();
+                    arriendoArr[i][4]=buscaArriendo(i).getCliente().getRut();
+                    arriendoArr[i][5]=buscaArriendo(i).getCliente().getNombre();
+                    arriendoArr[i][6]= String.valueOf(buscaArriendo(i).getMontoTotal());
+                    i++;
                 }
-                arriendoArr[i][3]= String.valueOf(buscaArriendo(i).getEstado()).toLowerCase();
-                arriendoArr[i][4]=buscaArriendo(i).getCliente().getRut();
-                arriendoArr[i][5]=buscaArriendo(i).getCliente().getNombre();
-                arriendoArr[i][6]= String.valueOf(buscaArriendo(i).getMontoTotal());
-                i++;
+            }else{
+                System.out.println("EL ERROR ESTA EN EL METODO CREOAAAAA");
             }
         }
         return arriendoArr;

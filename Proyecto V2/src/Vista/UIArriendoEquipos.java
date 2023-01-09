@@ -235,36 +235,27 @@ public class UIArriendoEquipos {
     }
 
     private void crearEquipo(){
+        long cod=0;
+        String desc="Hola";
+        long precio=0;
+        try {
+            CrearEquipo creaEquipo=new CrearEquipo();
+                    ControladorArriendoEquipos.getInstancia().creaImplemento(cod, desc, precio);
+                    System.out.println("Se ha creado exitosamente un nuevo implemento");
+        }catch (EquipoException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    private void crearComplemento(){
         long cod;
         String desc;
         int tipoEquipo;
         long precio;
         int nroEquiposComponentes;
         try {
-            System.out.println("Creando un nuevo equipo...\n");
-            System.out.println("Codigo: ");
-            cod=scan.nextLong();
-            scan.nextLine();
-            System.out.println("Descripcion: ");
-            desc=scan.nextLine();
-            System.out.println("Tipo equipo (1: Implemento, 2: Conjunto): ");
-            tipoEquipo=scan.nextInt();
-
-            //newwwwwwwwwwwwwwwwwwwww
-            while (tipoEquipo!= 1 && tipoEquipo!=2){
-                System.out.println("Ingrese un numero entre los rangos");
-                tipoEquipo = scan.nextInt();
-            }
-            //newwwwwwwwwwwwwwwwwwwww
-
-            switch (tipoEquipo){
-                case 1:
-                    System.out.println("Precio arriendo por dia: ");
-                    precio=scan.nextLong();
-                    ControladorArriendoEquipos.getInstancia().creaImplemento(cod, desc, precio);
-                    System.out.println("Se ha creado exitosamente un nuevo implemento");
-                    break;
-                case 2:
+            CrearEquipo creaEquipo=new CrearEquipo();
+            cod=0;
+            desc= "";
                     System.out.println("Numero de equipos componentes ");
                     nroEquiposComponentes=scan.nextInt();
                     long [] codEquipos = new long[nroEquiposComponentes];
@@ -275,9 +266,6 @@ public class UIArriendoEquipos {
 
                     ControladorArriendoEquipos.getInstancia().creaConjunto(cod,desc,codEquipos);
                     System.out.println("Se ha creado exitosamente un nuevo conjunto");
-                    break;
-            }
-            //ControladorArriendoEquipos.getInstancia().creaEquipo(cod,desc,precio);//se borra?? si se borra
         }catch (EquipoException e) {
             System.out.println(e.getMessage());
         }
@@ -371,6 +359,7 @@ public class UIArriendoEquipos {
     	  String[] cliente = ControladorArriendoEquipos.getInstancia().consultaCliente(rut);
     	  System.out.println("Nombre del cliente: " + cliente[1] + " \n");
     	  String[][] datosArriendos = ControladorArriendoEquipos.getInstancia().listaArriendosPorDevolver(rut);
+
     	  if(datosArriendos.length==0) {
     		  System.out.println("La matriz esta vacia");
     	  }
@@ -382,11 +371,13 @@ public class UIArriendoEquipos {
     	    }
     	    System.out.println("Ingrese el codigo del arriendo a devolver:");
     	    codigo = scan.nextLong();
+
     	    String[][] detallesArriendo = ControladorArriendoEquipos.getInstancia().listaDetallesArriendo(codigo);
             //if (detallesArriendo.length > 0){
                 System.out.println("Ingresa codigo y estado en el que se devuelve cada equipo que se indica:");
                 EstadoEquipo[] estadoEquipo = new EstadoEquipo[detallesArriendo.length];
                 int i= 0;
+
                 for (String[] linea : detallesArriendo){
                     System.out.print(detallesArriendo[i][1]+" ("+detallesArriendo[i][0]+")"+" --> Estado (1: Operativo, 2:En reparacion, 3: Dadode baja): ");
                     estado=scan.nextInt();
