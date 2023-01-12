@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="Vista.Principal">
+  <grid id="27dc6" binding="panelPrincipal" layout-manager="GridLayoutManager" row-count="6" column-count="4" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+    <margin top="0" left="15" bottom="10" right="15"/>
+    <constraints>
+      <xy x="20" y="20" width="1178" height="580"/>
+    </constraints>
+    <properties>
+      <focusable value="false"/>
+    </properties>
+    <clientProperties>
+      <html.disable class="java.lang.Boolean" value="false"/>
+    </clientProperties>
+    <border type="none">
+      <color color="-16729339"/>
+    </border>
+    <children>
+      <component id="f4d7e" class="javax.swing.JButton" binding="nuevoConjuntoButton" default-binding="true">
+        <constraints>
+          <grid row="1" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <icon value="Vista/iconos/128x128/skier.png"/>
+          <text value="Nuevo conjunto"/>
+        </properties>
+      </component>
+      <component id="22220" class="javax.swing.JButton" binding="nuevoImplementoButton" default-binding="true">
+        <constraints>
+          <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <icon value="Vista/iconos/128x128/ski-boots.png"/>
+          <text value="Nuevo implemento"/>
+        </properties>
+      </component>
+      <component id="7c53e" class="javax.swing.JButton" binding="nuevoClienteButton" default-binding="true">
+        <constraints>
+          <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <icon value="Vista/iconos/128x128/nuevoCliente.png"/>
+          <text value="Nuevo cliente"/>
+        </properties>
+      </component>
+      <component id="caced" class="javax.swing.JButton" binding="arrendarEquipoButton" default-binding="true">
+        <constraints>
+          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <icon value="Vista/iconos/128x128/caja-de-entrega.png"/>
+          <text value="Arrendar equipo"/>
+        </properties>
+      </component>
+      <component id="e0ff9" class="javax.swing.JButton" binding="listadoArriendosButton" default-binding="true">
+        <constraints>
+          <grid row="2" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <icon value="Vista/iconos/128x128/lista-de-verificacion2.png"/>
+          <text value="Listado arriendos "/>
+        </properties>
+      </component>
+      <component id="14ace" class="javax.swing.JButton" binding="listadoArriendosConPagosButton1" default-binding="true">
+        <constraints>
+          <grid row="2" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <icon value="Vista/iconos/128x128/ArriendosPagados.png"/>
+          <text value="Listado arriendos con pagos"/>
+        </properties>
+      </component>
+      <component id="c306c" class="javax.swing.JButton" binding="pagarArriendoButton" default-binding="true">
+        <constraints>
+          <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <icon value="Vista/iconos/128x128/pago.png"/>
+          <text value="Pagar arriendo"/>
+        </properties>
+      </component>
+      <component id="35323" class="javax.swing.JButton" binding="devolverArriendoButton" default-binding="true">
+        <constraints>
+          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <icon value="Vista/iconos/128x128/caja-de-devolucion.png"/>
+          <text value="Devolver arriendo"/>
+        </properties>
+      </component>
+      <component id="7e61" class="javax.swing.JButton" binding="detalleDeUnArriendoButton" default-binding="true">
+        <constraints>
+          <grid row="3" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <icon value="Vista/iconos/128x128/ski.png"/>
+          <text value="Detalle de un arriendo"/>
+        </properties>
+      </component>
+      <component id="353ff" class="javax.swing.JButton" binding="listadoPagoArriendoButton" default-binding="true">
+        <constraints>
+          <grid row="3" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <icon value="Vista/iconos/128x128/ListadoPago.png"/>
+          <text value="Listado pago arriendo"/>
+        </properties>
+      </component>
+      <component id="9bd14" class="javax.swing.JButton" binding="listadoClientesButton" default-binding="true">
+        <constraints>
+          <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <icon value="Vista/iconos/128x128/listaCliente.png"/>
+          <text value="Listado clientes"/>
+        </properties>
+      </component>
+      <component id="d1d19" class="javax.swing.JButton" binding="listadoEquiposButton" default-binding="true">
+        <constraints>
+          <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <icon value="Vista/iconos/128x128/lista-de-verificacion.png"/>
+          <text value="Listado equipos"/>
+        </properties>
+      </component>
+      <component id="e7d4b" class="javax.swing.JLabel">
+        <constraints>
+          <grid row="0" column="0" row-span="1" col-span="4" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <font size="20"/>
+          <horizontalAlignment value="0"/>
+          <horizontalTextPosition value="0"/>
+          <text value="Gestion de arriendos para equipos de nieve"/>
+        </properties>
+      </component>
+      <grid id="5200f" binding="panelesInferiores" layout-manager="GridLayoutManager" row-count="1" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+        <margin top="0" left="0" bottom="0" right="0"/>
+        <constraints>
+          <grid row="4" column="2" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="true"/>
+        </constraints>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <component id="c3449" class="javax.swing.JButton" binding="abrirButton" default-binding="true">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <icon value="Vista/iconos/32x32/abrir-documento.png"/>
+              <text value="Abrir"/>
+            </properties>
+          </component>
+          <component id="fa0e2" class="javax.swing.JButton" binding="guardarButton" default-binding="true">
+            <constraints>
+              <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <icon value="Vista/iconos/32x32/disco-flexible.png"/>
+              <text value="Guardar"/>
+            </properties>
+          </component>
+          <component id="a30af" class="javax.swing.JButton" binding="salirButton" default-binding="true">
+            <constraints>
+              <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <icon value="Vista/iconos/32x32/salida.png"/>
+              <text value="Salir"/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+    </children>
+  </grid>
+</form>
